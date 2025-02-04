@@ -1,7 +1,9 @@
+import LoanDetails from './components/LoanDetails.tsx'
+
 function App() {
   return (
     <>
-      <h1>Sample React</h1>
+      <LoanDetails />
     </>
   )
 }
