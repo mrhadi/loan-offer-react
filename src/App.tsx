@@ -1,9 +1,9 @@
-import LoanDetails from './components/LoanDetails.tsx'
+import LoanDetailsForm from './components/LoanDetailsForm.tsx'
 
 function App() {
   return (
     <>
-      <LoanDetails />
+      <LoanDetailsForm />
     </>
   )
 }
