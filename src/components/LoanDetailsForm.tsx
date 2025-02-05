@@ -2,9 +2,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { LoanDetailsType, LoanDetailsSchema } from '../schema/loanDetails.ts'
-import loadService from '../services/loanService.ts'
 
-const LoanDetailsForm = () => {
+interface LoanDetailsFormProps {
+  handleSubmit: (data: LoanDetailsType) => void
+}
+
+const LoanDetailsForm = (props: LoanDetailsFormProps) => {
   const {
     register,
     handleSubmit,
@@ -12,11 +15,9 @@ const LoanDetailsForm = () => {
   } = useForm<LoanDetailsType>({ resolver: zodResolver(LoanDetailsSchema) })
 
   const onSubmit = (data: LoanDetailsType) => {
-    console.log(data)
-
-    loadService.postLoanDetails(data)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    if (isValid) {
+      props.handleSubmit(data)
+    }
   }
 
   return (

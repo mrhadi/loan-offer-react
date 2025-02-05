@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import { z } from 'zod'
 
 export const LoanDetailsSchema = z.object({
   firstName: z.string().trim().min(2),
