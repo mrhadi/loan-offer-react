@@ -1,7 +1,7 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:5173/')
+    cy.visit('http://192.168.1.135:5173/')
 
-    cy.get("[data-testid='cypress-header']").should('exists')
+    cy.get("[data-testid='cypress-header']").should('exist')
   })
 })
