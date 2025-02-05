@@ -25,7 +25,7 @@ const LoanDetailsForm = (props: LoanDetailsFormProps) => {
 
   return (
     <>
-      <h4>Please enter your details to get the best offers from our lenders</h4>
+      <h4 data-testid='cypress-header'>Please enter your details to get the best offers from our lenders</h4>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">
