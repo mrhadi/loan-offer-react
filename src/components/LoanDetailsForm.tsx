@@ -1,27 +1,14 @@
 import { FieldValues, useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const schema = z.object({
-  firstName: z.string().trim().min(2),
-  lastName: z.string().trim().min(2),
-  email: z.string().email().trim().min(5),
-  employmentStatus: z.string(),
-  employerName: z.string(),
-  vehiclePrice: z.number(),
-  deposit: z.number(),
-  loanPurpose: z.string(),
-  loanTerm: z.number().gte(1).lte(7),
-})
-
-type LoanDetailsFormData = z.infer<typeof schema>
+import { LoanDetailsType, LoanDetailsSchema } from '../schema/loanDetails.ts'
 
 const LoanDetailsForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoanDetailsFormData>({ resolver: zodResolver(schema) })
+  } = useForm<LoanDetailsType>({ resolver: zodResolver(LoanDetailsSchema) })
 
   const onSubmit = (data: FieldValues) => console.log(data)
 
