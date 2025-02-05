@@ -9,10 +9,13 @@ interface LoanDetailsFormProps {
 
 const LoanDetailsForm = (props: LoanDetailsFormProps) => {
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<LoanDetailsType>({ resolver: zodResolver(LoanDetailsSchema) })
+
+  const showEmployerName = watch('employmentStatus')
 
   const onSubmit = (data: LoanDetailsType) => {
     if (isValid) {
@@ -76,18 +79,20 @@ const LoanDetailsForm = (props: LoanDetailsFormProps) => {
         </select>
       </div>
 
-      <div className="mb-3">
-        <label htmlFor="employerName" className="form-label">
-          Employer name
-        </label>
-        <input
-          {...register("employerName")}
-          type="string"
-          className="form-control"
-          id="email"
-        />
-        {errors.employerName && <p className="text-danger">{errors.employerName.message}</p>}
-      </div>
+      {showEmployerName === 'employed' && (
+        <div className="mb-3">
+          <label htmlFor="employerName" className="form-label">
+            Employer name
+          </label>
+          <input
+            {...register("employerName")}
+            type="string"
+            className="form-control"
+            id="email"
+          />
+          {errors.employerName && <p className="text-danger">{errors.employerName.message}</p>}
+        </div>
+      )}
 
       <div className="mb-3">
         <label htmlFor="vehiclePrice" className="form-label">
@@ -98,7 +103,7 @@ const LoanDetailsForm = (props: LoanDetailsFormProps) => {
             <span className="input-group-text">$</span>
           </div>
           <input
-            {...register("vehiclePrice", { valueAsNumber: true })}
+            {...register("vehiclePrice", {valueAsNumber: true })}
             type="string"
             className="form-control"
             id="vehiclePrice"
