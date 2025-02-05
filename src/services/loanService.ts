@@ -1,5 +1,10 @@
 import apiClient from './api'
 import { LoanDetailsType } from '../schema/loanDetails'
+import { OfferDetailsType } from '../schema/offerDetails'
+
+type PostLoanDetailsResponseType = {
+  data: Array<OfferDetailsType>
+}
 
 class LoanService {
   endpoint: string;
@@ -8,7 +13,7 @@ class LoanService {
     this.endpoint = endpoint
   }
 
-  postLoanDetails(entity: LoanDetailsType) {
+  postLoanDetails(entity: LoanDetailsType): Promise<PostLoanDetailsResponseType> {
     return apiClient.post(this.endpoint, entity)
   }
 }

@@ -1,21 +1,22 @@
+import { useState } from 'react'
+
 import LoanDetailsForm from './components/LoanDetailsForm.tsx'
 
-import {LoanDetailsType} from './schema/loanDetails'
+import { LoanDetailsType } from './schema/loanDetails'
+import { OfferDetailsType } from './schema/offerDetails.ts'
+
 import loadService from './services/loanService.ts'
-import LoanOffers from "./components/LoanOffers.tsx";
-import {useState} from "react";
-import {OfferDetailsType} from "./schema/offerDetails.ts";
+import LoanOffers from './components/LoanOffers.tsx'
 
 function App() {
-  const [loanOffers, setLoanOffers] = useState<OfferDetailsType>([])
+  const [loanOffersData, setLoanOffersData] = useState<Array<OfferDetailsType>>([])
 
   const handleLoanDetails = (data: LoanDetailsType) => {
-    console.log(data)
-
     loadService.postLoanDetails(data)
       .then(res => {
-        setLoanOffers(res)
-        console.log(res)
+        if (res?.data) {
+          setLoanOffersData(res.data)
+        }
       })
       .catch(err => console.log(err))
   }
@@ -23,7 +24,7 @@ function App() {
   return (
     <>
       <LoanDetailsForm handleSubmit={handleLoanDetails} />
-      <LoanOffers loanOffers={loanOffers} />
+      {loanOffersData.length > 0 && <LoanOffers loanOffers={loanOffersData} />}
     </>
   )
 }
