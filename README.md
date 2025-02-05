@@ -26,5 +26,5 @@ npm run dev
 ## Step 3: Run tests
 
 ```bash
-npm test
+npx cypress run
 ```
