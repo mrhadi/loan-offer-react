@@ -1,7 +1,8 @@
-import { FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { LoanDetailsType, LoanDetailsSchema } from '../schema/loanDetails.ts'
+import loadService from '../services/loanService.ts'
 
 const LoanDetailsForm = () => {
   const {
@@ -10,7 +11,13 @@ const LoanDetailsForm = () => {
     formState: { errors, isValid },
   } = useForm<LoanDetailsType>({ resolver: zodResolver(LoanDetailsSchema) })
 
-  const onSubmit = (data: FieldValues) => console.log(data)
+  const onSubmit = (data: LoanDetailsType) => {
+    console.log(data)
+
+    loadService.postLoanDetails(data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,9 +69,9 @@ const LoanDetailsForm = () => {
           className="form-control"
           id="employmentStatus"
         >
-          <option>Employed</option>
-          <option>Self-Employed</option>
-          <option>Unemployed</option>
+          <option value='employed'>Employed</option>
+          <option value='self-employed'>Self-Employed</option>
+          <option value='unemployed'>Unemployed</option>
         </select>
       </div>
 
@@ -154,7 +161,7 @@ const LoanDetailsForm = () => {
           <option>7</option>
         </select>
       </div>
-      <button disabled={!isValid} className="btn btn-primary" type="submit">
+      <button className="btn btn-primary" type="submit">
         Submit
       </button>
     </form>

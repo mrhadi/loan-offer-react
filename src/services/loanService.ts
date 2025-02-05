@@ -13,6 +13,6 @@ class LoanService {
   }
 }
 
-const create = (endpoint: string) => new LoanService(endpoint)
+const loadService = (endpoint: string) => new LoanService(endpoint)
 
-export default create
+export default loadService('/loan')
