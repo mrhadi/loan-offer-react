@@ -1,4 +1,5 @@
 import { OfferDetailsType } from '../schema/offerDetails'
+import { formatAmount } from '../utils/format'
 
 interface LoanOffersProps {
   loanOffers: Array<OfferDetailsType>
@@ -21,8 +22,8 @@ const LoanOffers = (props: LoanOffersProps) => {
         {props.loanOffers.map((loanOffer: OfferDetailsType) => (
           <tr>
             <td>{loanOffer.lender}</td>
-            <td>{loanOffer.monthlyRepayments}</td>
-            <td>{loanOffer.interestRate}</td>
+            <td>{formatAmount(loanOffer.monthlyRepayments)}</td>
+            <td>{`${loanOffer.interestRate}% APR`}</td>
             <td>{loanOffer.fees}</td>
           </tr>
         ))}
